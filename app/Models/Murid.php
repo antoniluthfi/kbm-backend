@@ -13,6 +13,8 @@ class Murid extends Model
 
     protected $table = 'murid';
 
+    protected $appends = ['foto_url'];
+
     protected $fillable = [
         'user_id',
         'nama',
