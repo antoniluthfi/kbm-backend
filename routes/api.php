@@ -5,6 +5,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MuridController;
 use App\Http\Controllers\PengajarController;
+use App\Http\Controllers\PertemuanController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliMuridController;
@@ -54,4 +55,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('jadwal/minggu-ini', [JadwalController::class, 'mingguIni']);
     Route::apiResource('jadwal', JadwalController::class);
     Route::post('jadwal/{jadwal}/ganti', [JadwalController::class, 'ganti']);
+
+    // Absensi
+    Route::get('rekap/absensi-murid', [PertemuanController::class, 'rekapMurid']);
+    Route::get('murid/{muridId}/rekap-absensi', [PertemuanController::class, 'rekapSatuMurid']);
+
+    Route::apiResource('pertemuan', PertemuanController::class)->except(['store']);
+    Route::post('pertemuan', [PertemuanController::class, 'store']);
+    Route::post('pertemuan/{pertemuan}/selesai', [PertemuanController::class, 'selesai']);
+    Route::post('pertemuan/{pertemuan}/batalkan', [PertemuanController::class, 'batalkan']);
+
+    Route::get('pertemuan/{pertemuan}/absensi', [PertemuanController::class, 'absensiIndex']);
+    Route::post('pertemuan/{pertemuan}/absensi', [PertemuanController::class, 'absensiBulk']);
+    Route::put('absensi-murid/{absensiMurid}', [PertemuanController::class, 'absensiUpdate']);
+
+    Route::post('pertemuan/{pertemuan}/absensi-pengajar', [PertemuanController::class, 'absensiPengajarStore']);
+    Route::put('pertemuan/{pertemuan}/absensi-pengajar', [PertemuanController::class, 'absensiPengajarStore']);
 });
