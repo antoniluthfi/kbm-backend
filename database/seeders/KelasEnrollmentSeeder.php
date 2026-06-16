@@ -23,31 +23,26 @@ class KelasEnrollmentSeeder extends Seeder
     private function assignPengajar(string $ta): void
     {
         $assignments = [
-            // Ahmad Fauzi → utama di Tahfidz Dasar & Menengah
+            // Siti Aminah → utama di Kelas 5 & Kelas 6
+            [
+                'pengajar_email' => 'siti.aminah@kbm.id',
+                'kelas_nama'     => 'Kelas 5',
+                'peran'          => 'utama',
+            ],
+            [
+                'pengajar_email' => 'siti.aminah@kbm.id',
+                'kelas_nama'     => 'Kelas 6',
+                'peran'          => 'utama',
+            ],
+            // Ahmad Fauzi → utama di Kelas Pra-Remaja, asisten di Kelas 6
             [
                 'pengajar_email' => 'ahmad.fauzi@kbm.id',
-                'kelas_nama'     => 'Kelas Tahfidz Dasar',
+                'kelas_nama'     => 'Kelas Pra-Remaja',
                 'peran'          => 'utama',
             ],
             [
                 'pengajar_email' => 'ahmad.fauzi@kbm.id',
-                'kelas_nama'     => 'Kelas Tahfidz Menengah',
-                'peran'          => 'asisten',
-            ],
-            // Siti Aminah → utama di Pra-Tahfidz A & B
-            [
-                'pengajar_email' => 'siti.aminah@kbm.id',
-                'kelas_nama'     => 'Kelas Pra-Tahfidz A',
-                'peran'          => 'utama',
-            ],
-            [
-                'pengajar_email' => 'siti.aminah@kbm.id',
-                'kelas_nama'     => 'Kelas Pra-Tahfidz B',
-                'peran'          => 'utama',
-            ],
-            [
-                'pengajar_email' => 'siti.aminah@kbm.id',
-                'kelas_nama'     => 'Kelas Tahfidz Dasar',
+                'kelas_nama'     => 'Kelas 6',
                 'peran'          => 'asisten',
             ],
         ];
@@ -79,13 +74,13 @@ class KelasEnrollmentSeeder extends Seeder
     private function enrollMurid(string $ta): void
     {
         $enrollments = [
-            ['murid_nama' => 'Budi Santoso',     'kelas_nama' => 'Kelas Tahfidz Dasar',    'status' => 'aktif',  'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
-            ['murid_nama' => 'Dewi Rahayu',      'kelas_nama' => 'Kelas Pra-Tahfidz B',    'status' => 'aktif',  'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
-            ['murid_nama' => 'Fajar Nugroho',    'kelas_nama' => 'Kelas Tahfidz Menengah', 'status' => 'aktif',  'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
-            ['murid_nama' => 'Aisyah Putri',     'kelas_nama' => 'Kelas Pra-Tahfidz A',    'status' => 'aktif',  'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
-            ['murid_nama' => 'Nadia Sari',       'kelas_nama' => 'Kelas Pra-Tahfidz A',    'status' => 'aktif',  'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
-            // Rizky lulus — enrollment lama sudah tutup
-            ['murid_nama' => 'Rizky Firmansyah', 'kelas_nama' => 'Kelas Reguler 2023',      'status' => 'lulus', 'tanggal_masuk' => '2023-07-01', 'tanggal_keluar' => '2024-06-30'],
+            ['murid_nama' => 'Budi Santoso',     'kelas_nama' => 'Kelas Pra-Remaja', 'status' => 'aktif', 'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
+            ['murid_nama' => 'Dewi Rahayu',      'kelas_nama' => 'Kelas 6',          'status' => 'aktif', 'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
+            ['murid_nama' => 'Fajar Nugroho',    'kelas_nama' => 'Kelas Pra-Remaja', 'status' => 'aktif', 'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
+            ['murid_nama' => 'Aisyah Putri',     'kelas_nama' => 'Kelas Pra-Remaja', 'status' => 'aktif', 'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
+            ['murid_nama' => 'Nadia Sari',       'kelas_nama' => 'Kelas 5',          'status' => 'aktif', 'tanggal_masuk' => '2025-07-01', 'tanggal_keluar' => null],
+            // Rizky lulus dari Kelas 6 tahun ajaran lalu — enrollment lama sudah tutup
+            ['murid_nama' => 'Rizky Firmansyah', 'kelas_nama' => 'Kelas 6',          'status' => 'lulus', 'tanggal_masuk' => '2023-07-01', 'tanggal_keluar' => '2024-06-30'],
         ];
 
         foreach ($enrollments as $item) {

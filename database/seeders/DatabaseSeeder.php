@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
             MuridSeeder::class,        // 3. profil murid + wali murid
             KelasSeeder::class,        // 4. data kelas
             KelasEnrollmentSeeder::class, // 5. assign pengajar & enroll murid ke kelas
+            ProgramSeeder::class,      // 6. program/kegiatan + kelas yang ikut
+            JadwalSeeder::class,       // 7. jadwal rutin per program & kelas (butuh kelas_pengajar)
         ]);
     }
 }

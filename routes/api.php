@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MuridController;
 use App\Http\Controllers\PengajarController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliMuridController;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +43,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('kelas/{kelas}/murid', [KelasController::class, 'enrollMurid']);
     Route::delete('kelas/{kelas}/murid/{murid}', [KelasController::class, 'keluarkanMurid']);
     Route::post('kelas/{kelas}/naik-kelas', [KelasController::class, 'naikKelas']);
+    Route::get('kelas/{kelas}/jadwal', [JadwalController::class, 'jadwalKelas']);
+
+    Route::apiResource('program', ProgramController::class);
+    Route::put('program/{program}/toggle', [ProgramController::class, 'toggleAktif']);
+    Route::post('program/{program}/kelas', [ProgramController::class, 'assignKelas']);
+    Route::delete('program/{program}/kelas/{kelas}', [ProgramController::class, 'lepasKelas']);
+
+    // Harus sebelum apiResource agar 'minggu-ini' tidak ditangkap sebagai {jadwal}
+    Route::get('jadwal/minggu-ini', [JadwalController::class, 'mingguIni']);
+    Route::apiResource('jadwal', JadwalController::class);
+    Route::post('jadwal/{jadwal}/ganti', [JadwalController::class, 'ganti']);
 });
