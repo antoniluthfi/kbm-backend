@@ -15,9 +15,13 @@ class MuridController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $query = Murid::with('waliMurid')
+        $query = Murid::with(['waliMurid', 'kelasAktif.kelas'])
             ->when($request->search, fn($q) => $q->where('nama', 'like', "%{$request->search}%"))
-            ->when($request->status, fn($q) => $q->where('status', $request->status));
+            ->when($request->status, fn($q) => $q->where('status', $request->status))
+            ->when($request->boolean('tanpa_kelas'), fn($q) => $q->whereDoesntHave('kelasAktif'))
+            ->when($request->kelas_id, fn($q) => $q->whereHas('kelasAktif', fn($k) => $k->where('kelas_id', $request->kelas_id)))
+            ->when($request->usia_min, fn($q) => $q->whereRaw("DATE_PART('year', AGE(CURRENT_DATE, tanggal_lahir)) >= ?", [$request->usia_min]))
+            ->when($request->usia_max, fn($q) => $q->whereRaw("DATE_PART('year', AGE(CURRENT_DATE, tanggal_lahir)) <= ?", [$request->usia_max]));
 
         return response()->json($query->paginate(15));
     }

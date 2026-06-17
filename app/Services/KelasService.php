@@ -33,24 +33,13 @@ class KelasService
     {
         return DB::transaction(function () use ($kelas, $data) {
             $alreadyEnrolled = MuridKelas::where('murid_id', $data['murid_id'])
-                ->where('kelas_id', $kelas->id)
-                ->where('tahun_ajaran', $data['tahun_ajaran'])
                 ->where('status', 'aktif')
                 ->whereNull('tanggal_keluar')
                 ->exists();
 
             if ($alreadyEnrolled) {
-                abort(422, 'Murid sudah terdaftar aktif di kelas ini untuk tahun ajaran tersebut.');
+                abort(422, 'Murid sudah terdaftar aktif di kelas lain. Keluarkan murid dari kelas sebelumnya terlebih dahulu.');
             }
-
-            // Tutup enrollment aktif di kelas lain
-            MuridKelas::where('murid_id', $data['murid_id'])
-                ->where('status', 'aktif')
-                ->whereNull('tanggal_keluar')
-                ->update([
-                    'tanggal_keluar' => now()->toDateString(),
-                    'status'         => 'pindah',
-                ]);
 
             return MuridKelas::create([
                 'murid_id'      => $data['murid_id'],
