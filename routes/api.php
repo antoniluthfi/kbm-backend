@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BabKurikulumController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\MuridController;
 use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\PertemuanController;
+use App\Http\Controllers\ProgressMateriController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WaliMuridController;
@@ -71,4 +75,34 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('pertemuan/{pertemuan}/absensi-pengajar', [PertemuanController::class, 'absensiPengajarStore']);
     Route::put('pertemuan/{pertemuan}/absensi-pengajar', [PertemuanController::class, 'absensiPengajarStore']);
+
+    // Kurikulum
+    Route::get('kurikulum', [KurikulumController::class, 'index']);
+    Route::post('kurikulum', [KurikulumController::class, 'store']);
+    Route::get('kurikulum/{kurikulum}', [KurikulumController::class, 'show']);
+    Route::put('kurikulum/{kurikulum}', [KurikulumController::class, 'update']);
+    Route::delete('kurikulum/{kurikulum}', [KurikulumController::class, 'destroy']);
+    Route::post('kurikulum/{kurikulum}/duplikat', [KurikulumController::class, 'duplikat']);
+
+    // Bab Kurikulum
+    Route::get('kurikulum/{kurikulum}/bab', [BabKurikulumController::class, 'index']);
+    Route::post('kurikulum/{kurikulum}/bab', [BabKurikulumController::class, 'store']);
+    Route::put('bab-kurikulum/{babKurikulum}', [BabKurikulumController::class, 'update']);
+    Route::delete('bab-kurikulum/{babKurikulum}', [BabKurikulumController::class, 'destroy']);
+    Route::post('kurikulum/{kurikulum}/bab/urutan', [BabKurikulumController::class, 'reorder']);
+
+    // Materi
+    Route::get('bab-kurikulum/{babKurikulum}/materi', [MateriController::class, 'index']);
+    Route::post('bab-kurikulum/{babKurikulum}/materi', [MateriController::class, 'store']);
+    Route::put('materi/{materi}', [MateriController::class, 'update']);
+    Route::delete('materi/{materi}', [MateriController::class, 'destroy']);
+    Route::post('kurikulum/{kurikulum}/materi/urutan', [MateriController::class, 'reorder']);
+    Route::post('materi/{materi}/selesai-umum', [MateriController::class, 'selesaikanUmum']);
+    Route::get('kurikulum/{kurikulum}/materi/bulan/{bulan}', [MateriController::class, 'progressBulan']);
+
+    // Progress
+    Route::get('kurikulum/{kurikulum}/progress', [ProgressMateriController::class, 'progressKelas']);
+    Route::get('kurikulum/{kurikulum}/progress/{murid}', [ProgressMateriController::class, 'progressMurid']);
+    Route::put('progress-materi/{progressMateri}', [ProgressMateriController::class, 'update']);
+    Route::post('kurikulum/{kurikulum}/progress-bulk', [ProgressMateriController::class, 'bulk']);
 });
