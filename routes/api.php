@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BabKurikulumController;
+use App\Http\Controllers\KasKategoriController;
+use App\Http\Controllers\KasTransaksiController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\KurikulumController;
@@ -105,4 +107,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('kurikulum/{kurikulum}/progress/{murid}', [ProgressMateriController::class, 'progressMurid']);
     Route::put('progress-materi/{progressMateri}', [ProgressMateriController::class, 'update']);
     Route::post('kurikulum/{kurikulum}/progress-bulk', [ProgressMateriController::class, 'bulk']);
+
+    // Kas — Kategori (super admin only)
+    Route::get('kas/kategori', [KasKategoriController::class, 'index']);
+    Route::post('kas/kategori', [KasKategoriController::class, 'store']);
+    Route::put('kas/kategori/{kasKategori}', [KasKategoriController::class, 'update']);
+    Route::delete('kas/kategori/{kasKategori}', [KasKategoriController::class, 'destroy']);
+
+    // Kas — Rekap (harus sebelum {kelas} agar tidak ditangkap sebagai param)
+    Route::get('kas/rekap', [KasTransaksiController::class, 'rekap']);
+    Route::get('kas/rekap/{kelas}', [KasTransaksiController::class, 'rekapKelas']);
+
+    // Kas — Transaksi
+    Route::get('kas/transaksi', [KasTransaksiController::class, 'index']);
+    Route::post('kas/transaksi', [KasTransaksiController::class, 'store']);
+    Route::put('kas/transaksi/{kasTransaksi}', [KasTransaksiController::class, 'update']);
+    Route::delete('kas/transaksi/{kasTransaksi}', [KasTransaksiController::class, 'destroy']);
 });

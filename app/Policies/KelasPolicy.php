@@ -51,4 +51,20 @@ class KelasPolicy
     {
         return $user->role->value === 'super_admin';
     }
+
+    public function viewKasTransaksi(User $user, Kelas $kelas): bool
+    {
+        if ($user->role->value === 'super_admin') {
+            return true;
+        }
+        return $user->role->value === 'pengajar'
+            && $kelas->kelasGuru()
+                ->whereHas('pengajar', fn ($q) => $q->where('user_id', $user->id))
+                ->exists();
+    }
+
+    public function catatKasTransaksi(User $user, Kelas $kelas): bool
+    {
+        return $this->viewKasTransaksi($user, $kelas);
+    }
 }

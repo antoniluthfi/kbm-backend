@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             AbsensiSeeder::class,      // 8. pertemuan + absensi murid & pengajar
             KurikulumSeeder::class,    // 9. kurikulum + bab + materi (semua kelas)
             ProgressMateriMuridSeeder::class, // 10. progress materi per murid aktif
+            KasKategoriSeeder::class,         // 11. kategori kas default
         ]);
     }
 }
