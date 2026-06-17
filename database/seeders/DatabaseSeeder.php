@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             ProgramSeeder::class,      // 6. program/kegiatan + kelas yang ikut
             JadwalSeeder::class,       // 7. jadwal rutin per program & kelas (butuh kelas_pengajar)
             AbsensiSeeder::class,      // 8. pertemuan + absensi murid & pengajar
+            KurikulumSeeder::class,    // 9. kurikulum + bab + materi (semua kelas)
+            ProgressMateriMuridSeeder::class, // 10. progress materi per murid aktif
         ]);
     }
 }
