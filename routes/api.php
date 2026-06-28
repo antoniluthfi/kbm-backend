@@ -20,6 +20,8 @@ use App\Http\Controllers\WaliMuridController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\WaLogController;
 use App\Http\Controllers\WaSettingsController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -162,6 +164,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('musyawarah/{musyawarah}/notulensi', [MusyawarahController::class, 'notulensiStore']);
     Route::put('musyawarah/{musyawarah}/notulensi/{notulensi}', [MusyawarahController::class, 'notulensiUpdate']);
     Route::delete('musyawarah/{musyawarah}/notulensi/{notulensi}', [MusyawarahController::class, 'notulensiDestroy']);
+
+    // Export
+    Route::prefix('export')->group(function () {
+        Route::get('murid',            [ExportController::class, 'muridExcel']);
+        Route::get('murid/pdf',        [ExportController::class, 'muridPdf']);
+        Route::get('murid/template',   [ExportController::class, 'muridTemplate']);
+        Route::get('pengajar',         [ExportController::class, 'pengajarExcel']);
+        Route::get('pengajar/pdf',     [ExportController::class, 'pengajarPdf']);
+        Route::get('pengajar/template', [ExportController::class, 'pengajarTemplate']);
+    });
+
+    // Import
+    Route::prefix('import')->group(function () {
+        Route::post('murid',    [ImportController::class, 'murid']);
+        Route::post('pengajar', [ImportController::class, 'pengajar']);
+    });
 
     // Settings WA (Super Admin)
     Route::get('settings/wa', [WaSettingsController::class, 'show']);
