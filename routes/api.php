@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MusyawarahController;
 use App\Http\Controllers\BabKurikulumController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasKategoriController;
@@ -143,6 +144,24 @@ Route::middleware('auth:sanctum')->group(function () {
     // WA Log
     Route::get('wa-log', [WaLogController::class, 'index']);
     Route::post('wa-log/{waLog}/retry', [WaLogController::class, 'retry']);
+
+    // Musyawarah (Super Admin)
+    Route::get('musyawarah', [MusyawarahController::class, 'index']);
+    Route::post('musyawarah', [MusyawarahController::class, 'store']);
+    Route::get('musyawarah/{musyawarah}', [MusyawarahController::class, 'show']);
+    Route::put('musyawarah/{musyawarah}', [MusyawarahController::class, 'update']);
+    Route::delete('musyawarah/{musyawarah}', [MusyawarahController::class, 'destroy']);
+    Route::post('musyawarah/{musyawarah}/selesai', [MusyawarahController::class, 'selesai']);
+    Route::post('musyawarah/{musyawarah}/regenerate', [MusyawarahController::class, 'regenerate']);
+
+    Route::get('musyawarah/{musyawarah}/laporan', [MusyawarahController::class, 'laporanIndex']);
+    Route::put('musyawarah/{musyawarah}/laporan/{laporan}', [MusyawarahController::class, 'laporanUpdate']);
+    Route::post('musyawarah/{musyawarah}/laporan/{laporan}/regenerate', [MusyawarahController::class, 'laporanRegenerate']);
+
+    Route::get('musyawarah/{musyawarah}/notulensi', [MusyawarahController::class, 'notulensiIndex']);
+    Route::post('musyawarah/{musyawarah}/notulensi', [MusyawarahController::class, 'notulensiStore']);
+    Route::put('musyawarah/{musyawarah}/notulensi/{notulensi}', [MusyawarahController::class, 'notulensiUpdate']);
+    Route::delete('musyawarah/{musyawarah}/notulensi/{notulensi}', [MusyawarahController::class, 'notulensiDestroy']);
 
     // Settings WA (Super Admin)
     Route::get('settings/wa', [WaSettingsController::class, 'show']);
