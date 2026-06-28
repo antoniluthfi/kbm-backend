@@ -167,12 +167,20 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Export
     Route::prefix('export')->group(function () {
-        Route::get('murid',            [ExportController::class, 'muridExcel']);
-        Route::get('murid/pdf',        [ExportController::class, 'muridPdf']);
-        Route::get('murid/template',   [ExportController::class, 'muridTemplate']);
-        Route::get('pengajar',         [ExportController::class, 'pengajarExcel']);
-        Route::get('pengajar/pdf',     [ExportController::class, 'pengajarPdf']);
-        Route::get('pengajar/template', [ExportController::class, 'pengajarTemplate']);
+        Route::get('murid',              [ExportController::class, 'muridExcel']);
+        Route::get('murid/pdf',          [ExportController::class, 'muridPdf']);
+        Route::get('murid/template',     [ExportController::class, 'muridTemplate']);
+        Route::get('pengajar',           [ExportController::class, 'pengajarExcel']);
+        Route::get('pengajar/pdf',       [ExportController::class, 'pengajarPdf']);
+        Route::get('pengajar/template',  [ExportController::class, 'pengajarTemplate']);
+        Route::get('kas',                [ExportController::class, 'kasExcel']);
+        Route::get('kas/pdf',            [ExportController::class, 'kasPdf']);
+        Route::get('absensi/rekap',      [ExportController::class, 'absensiRekapExcel']);
+        Route::get('absensi/rekap/pdf',  [ExportController::class, 'absensiRekapPdf']);
+        Route::get('kelas/{kelas}/roster',     [ExportController::class, 'kelasRosterExcel']);
+        Route::get('kelas/{kelas}/roster/pdf', [ExportController::class, 'kelasRosterPdf']);
+        Route::get('program',            [ExportController::class, 'programExcel']);
+        Route::get('musyawarah/{musyawarah}/pdf', [ExportController::class, 'musyawarahPdf']);
     });
 
     // Import
